@@ -1,0 +1,9 @@
+{
+  "name": "com.mind.bridge",
+  "description": "Mind Bridge Chrome Native Messaging Host",
+  "path": "__NATIVE_HOST_PATH__", 
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://__EXTENSION_ID__/"
+  ]
+}
