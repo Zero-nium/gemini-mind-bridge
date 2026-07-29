@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Mind Bridge",
+  "version": "0.1.0",
+  "description": "Local Gemini-to-Mind browser bridge for macOS.",
+  "permissions": [
+    "nativeMessaging",
+    "sidePanel",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://gemini.google.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "Open Mind Bridge Side Panel"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://gemini.google.com/*"
+      ],
+      "js": [
+        "adapter.js",
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
