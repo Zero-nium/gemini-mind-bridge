@@ -2,9 +2,9 @@
  * Mind Bridge Content Script
  * Runs in https://gemini.google.com/* content context.
  * Coordinates with adapter.js and background.js.
- /
-(~unction () {
-  'use strict';
+ */
+(function () {
+  'strict';
 
   const ALLOWED_ORIGIN = 'https://gemini.google.com';
 
@@ -31,13 +31,13 @@
         }
 
         if (window.GeminiAdapter.isGenerating()) {
-          sendResponse({ status: 'error', error: 'ATTIVE_GENERATION', message: 'Gemini is currently generating a response' });
+          sendResponse({ status: 'error', error: 'ACTIVE_GENERATION', message: 'Gemini is currently generating a response' });
           break;
         }
 
         setTimeout(() => {
           if (window.GeminiAdapter.isGenerating()) {
-            sendResponse({ status: 'error', error: 'ATTIVE_GENERATION', message: 'Gemini is currently generating a response' });
+            sendResponse({ status: 'error', error: 'ACTIVE_GENERATION', message: 'Gemini is currently generating a response' });
             return;
           }
 
@@ -74,7 +74,6 @@
           sendResponse({ status: 'error', error: 'INSERT_FAILED', message: 'Failed to find prompt input element' });
         }
         break;
-      }
 
       default:
         sendResponse({ status: 'error', error: 'UNKNOWN_ACTION', message: `Unknown action: ${message.action}` });
