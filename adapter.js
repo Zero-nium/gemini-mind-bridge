@@ -4,9 +4,9 @@
  * Strictly enforces read and insert boundaries without executing submit actions.
  */
 (function (global) {
-  'use strict';
+  'strict';
 
-  const UNTRUSTED_TAG_REGEX = /<\/?gemini_untrusted_output>/g;
+  const UNTRUSTED_TAG_REGEX = /<,/?gemini_untrusted_output>/g;
 
   const SELECTORS = {
     // Custom elements / primary semantic containers
@@ -28,7 +28,7 @@
   const GeminiAdapter = {
     isGenerating: function () {
       const stopBtn = document.querySelector(SELECTORS.stopButton);
-      return stopBtn !== null && stopBtn.offsetWidth > 0 && stopBtn.offsetHeight > 0;
+      return stopBtn !== null && stopBt.offsetWidth > 0 && stopBt.offsetHeight > 0;
     },
 
     extractLastSlice: function () {
@@ -36,22 +36,26 @@
         return null;
       }
 
-      const userNodes = document.querySelectorAll(SELCUTORS.userQuery);
+      const userNodes = document.querySelectorAll(SELECTORS.userQuery);
       const modelNodes = document.querySelectorAll(SELECTORS.modelResponse);
 
       if (userNodes.length === 0 || modelNodes.length === 0) {
         return null;
       }
 
-      const lastUserText = sanitizeText(userNodes[userNodes.length - 1].innerText || userNodes[userNodes.length - 1].textContent || '').trim();
-      const lastModelText = sanitizeText(modelNodes[modelNodes.length - 1].innerText || modelNodes[modelNodes.length - 1].textContent || '').trim();
+      const lastUserText = sanitizeText(userNodes[userNodes
+length - 1].innerText || userNodes[userNodes
+length - 1].textContent || '').trim();
+      const lastModelText = sanitizeText(modelNodes[modelNodes
+length - 1].innerText || modelNodes[modelNodes.length - 1].textContent || '').trim();
 
       if (!lastUserText || !lastModelText) {
         return null;
       }
 
       const formattedSlice = `User: ${lastUserText}
-^G\n\ngemini: ${lastModelText}`;
+
+\gemini: ${lastModelText}`;
 
       return {
         prompt: lastUserText,
