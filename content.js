@@ -4,7 +4,7 @@
  * Coordinates with adapter.js and background.js.
  */
 (function () {
-  'strict';
+  'use strict';
 
   const ALLOWED_ORIGIN = 'https://gemini.google.com';
 
@@ -74,9 +74,10 @@
           sendResponse({ status: 'error', error: 'INSERT_FAILED', message: 'Failed to find prompt input element' });
         }
         break;
+      }
 
       default:
-        sendResponse({ status: 'error', error: 'UNKNOWN_ACTION', message: `Unknown action: ${message.action}` });
+        sendResponse({ status: 'error', error: 'UNKNOWN_ACTION', message: 'Unknown action: ' + message.action });
         break;
     }
 
